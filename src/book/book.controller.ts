@@ -1,7 +1,12 @@
-import { Body, Controller, Delete, Get, Post, Put } from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, Post, Put} from "@nestjs/common";
 import { BookService } from './book.service';
 import { BookInterface } from './model/book.interface';
-import { CreateBookDtoInteface } from './model/create-book-dto.inteface';
+import {CreateBookDtoInteface, UpdateBookDto} from './model/create-book-dto.inteface';
+import {BookDocument} from "../entities/book.entity";
+
+class IParamId {
+  id: string
+}
 
 @Controller('book')
 export class BookController {
@@ -9,26 +14,27 @@ export class BookController {
 
   @Post()
   async create(@Body() createBookDto: BookInterface) {
-    this.bookService.create(createBookDto);
+    await this.bookService.create(createBookDto);
   }
 
   @Get()
-  async findAll(): Promise<BookInterface[]> {
+  async findAll(): Promise<BookDocument[]> {
     return this.bookService.findAll();
   }
 
   @Get()
-  async getBook(id: string): Promise<BookInterface> {
+  async getBook(id: string): Promise<BookDocument> {
     return this.bookService.getBook(id);
   }
 
-  @Put()
-  async updateBook(book: BookInterface): Promise<BookInterface> {
-    return this.bookService.updateBook(book.id, book);
+  @Put(':id')
+  async updateBook(@Param() {id}: IParamId,
+                   @Body() body: UpdateBookDto): Promise<BookDocument> {
+    return this.bookService.updateBook(id, body);
   }
 
-  @Delete()
-  async deleteBook(id: string): Promise<boolean> {
+  @Delete(':id')
+  async deleteBook(@Param() {id}: IParamId): Promise<BookDocument> {
     return this.bookService.deleteBook(id);
   }
 }
