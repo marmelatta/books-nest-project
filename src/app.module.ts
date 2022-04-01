@@ -7,8 +7,8 @@ import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
-    // BookModule,
-    //MongooseModule.forRoot('mongodb://example:example@localhost:27017/example'),
+    BookModule,
+    MongooseModule.forRoot('mongodb://example:example@localhost:27017/example'),
     HttpModule,
   ],
   controllers: [AppController],
