@@ -1,4 +1,4 @@
-export interface CreateBookDtoInteface {
+export interface CreateBookDtoInterface {
   title: string;
   description: string;
   authors: string;
