@@ -1,14 +1,14 @@
 import {
   Body,
   Controller,
-  Delete, ForbiddenException,
+  Delete,
   Get,
   Param,
   Post,
   Put,
   UseInterceptors,
-  UsePipes
-} from "@nestjs/common";
+  UsePipes,
+} from '@nestjs/common';
 import { BookService } from './book.service';
 import { CreateBookDto } from './model/create-book.dto';
 import { BookDocument } from '../entities/book.entity';
@@ -34,7 +34,7 @@ export class BookController {
 
   @Get()
   async findAll(): Promise<BookDocument[]> {
-    throw new Error('test exc');
+    // throw new Error('test exc');
     return this.bookService.findAll();
   }
 
