@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { BookInterface } from './model/book.interface';
-import { UpdateBookDto } from './model/create-book-dto.inteface';
+import { CreateBookDto } from './model/create-book.dto';
 import { Book, BookDocument } from '../entities/book.entity';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Model, Connection } from 'mongoose';
+import { UpdateBookDto } from "./model/update-book.dto";
 
 @Injectable()
 export class BookService {
@@ -14,7 +14,7 @@ export class BookService {
     private connection: Connection,
   ) {}
 
-  create(data: BookInterface): Promise<BookDocument> {
+  create(data: CreateBookDto): Promise<BookDocument> {
     const book = new this.BookModel(data);
     return book.save();
   }

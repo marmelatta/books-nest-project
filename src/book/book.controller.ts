@@ -5,15 +5,17 @@ import {
   Get,
   Param,
   Post,
-  Put, UseInterceptors, UsePipes
-} from "@nestjs/common";
+  Put,
+  UseInterceptors,
+  UsePipes,
+} from '@nestjs/common';
 import { BookService } from './book.service';
-import { BookInterface } from './model/book.interface';
-import { UpdateBookDto } from './model/create-book-dto.inteface';
+import { CreateBookDto } from './model/create-book.dto';
 import { BookDocument } from '../entities/book.entity';
-import { ExceptionInterceptor } from "../other/exception.interceptor";
-import { BodyValidatorPipe } from "../other/body-validator.pipe";
-import { ParseIntPipe } from "src/other/parse-int.pipe";
+import { ExceptionInterceptor } from '../other/exception.interceptor';
+import { BodyValidatorPipe } from '../other/body-validator.pipe';
+import { ParseIntPipe } from 'src/other/parse-int.pipe';
+import { UpdateBookDto } from './model/update-book.dto';
 
 class IParamId {
   id: string;
@@ -25,7 +27,8 @@ export class BookController {
   constructor(private bookService: BookService) {}
 
   @Post()
-  async create(@Body() createBookDto: BookInterface) {
+  @UsePipes(new BodyValidatorPipe())
+  async create(@Body() createBookDto: CreateBookDto) {
     await this.bookService.create(createBookDto);
   }
 
