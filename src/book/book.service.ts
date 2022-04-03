@@ -23,7 +23,7 @@ export class BookService {
     return this.BookModel.find().exec();
   }
 
-  getBook(id: string): Promise<BookDocument> {
+  getBook(id: number): Promise<BookDocument> {
     return this.BookModel.findById({ _id: id }).exec();
   }
 

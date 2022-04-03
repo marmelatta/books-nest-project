@@ -5,13 +5,15 @@ import {
   Get,
   Param,
   Post,
-  Put, UseInterceptors
+  Put, UseInterceptors, UsePipes
 } from "@nestjs/common";
 import { BookService } from './book.service';
 import { BookInterface } from './model/book.interface';
 import { UpdateBookDto } from './model/create-book-dto.inteface';
 import { BookDocument } from '../entities/book.entity';
 import { ExceptionInterceptor } from "../other/exception.interceptor";
+import { BodyValidatorPipe } from "../other/body-validator.pipe";
+import { ParseIntPipe } from "src/other/parse-int.pipe";
 
 class IParamId {
   id: string;
@@ -32,8 +34,9 @@ export class BookController {
     return this.bookService.findAll();
   }
 
-  @Get()
-  async getBook(id: string): Promise<BookDocument> {
+  @Get(':id')
+  @UsePipes(ParseIntPipe)
+  async getBook(@Param(':id') id: number): Promise<BookDocument> {
     return this.bookService.getBook(id);
   }
 
