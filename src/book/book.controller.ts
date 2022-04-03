@@ -5,17 +5,19 @@ import {
   Get,
   Param,
   Post,
-  Put,
-} from '@nestjs/common';
+  Put, UseInterceptors
+} from "@nestjs/common";
 import { BookService } from './book.service';
 import { BookInterface } from './model/book.interface';
 import { UpdateBookDto } from './model/create-book-dto.inteface';
 import { BookDocument } from '../entities/book.entity';
+import { ExceptionInterceptor } from "../other/exception.interceptor";
 
 class IParamId {
   id: string;
 }
 
+@UseInterceptors(ExceptionInterceptor)
 @Controller('book')
 export class BookController {
   constructor(private bookService: BookService) {}
