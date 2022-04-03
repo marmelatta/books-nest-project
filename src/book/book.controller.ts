@@ -1,20 +1,20 @@
 import {
   Body,
   Controller,
-  Delete,
+  Delete, ForbiddenException,
   Get,
   Param,
   Post,
   Put,
   UseInterceptors,
-  UsePipes,
-} from '@nestjs/common';
+  UsePipes
+} from "@nestjs/common";
 import { BookService } from './book.service';
 import { CreateBookDto } from './model/create-book.dto';
 import { BookDocument } from '../entities/book.entity';
-import { ExceptionInterceptor } from '../other/exception.interceptor';
-import { BodyValidatorPipe } from '../other/body-validator.pipe';
-import { ParseIntPipe } from 'src/other/parse-int.pipe';
+import { ExceptionInterceptor } from '../interceptors/exception.interceptor';
+import { BodyValidatorPipe } from '../pipes/body-validator.pipe';
+import { ParseIntPipe } from 'src/pipes/parse-int.pipe';
 import { UpdateBookDto } from './model/update-book.dto';
 
 class IParamId {
@@ -34,6 +34,7 @@ export class BookController {
 
   @Get()
   async findAll(): Promise<BookDocument[]> {
+    throw new Error('test exc');
     return this.bookService.findAll();
   }
 
