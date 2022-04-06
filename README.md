@@ -38,10 +38,10 @@ $ npm install
 # development
 $ npm run start
 
-# watch mode
+# watch model
 $ npm run start:dev
 
-# production mode
+# production model
 $ npm run start:prod
 ```
 

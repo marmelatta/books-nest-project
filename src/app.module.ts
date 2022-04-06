@@ -4,6 +4,9 @@ import { AppService } from './app.service';
 import { BookModule } from './book/book.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { HttpModule } from '@nestjs/axios';
+import { UsersController } from './users/users.controller';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,8 +17,10 @@ import { HttpModule } from '@nestjs/axios';
       pass: 'password',
     }),
     HttpModule,
+    UsersModule,
+    AuthModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, UsersController],
   providers: [AppService],
 })
 export class AppModule {}
