@@ -21,6 +21,10 @@ export class UsersService {
     return this.UserModel.find().exec();
   }
 
+  findOne(username: string): Promise<UserDocument> {
+    return this.UserModel.findOne({ username: username }).exec();
+  }
+
   getUser(id: number): Promise<UserDocument> {
     return this.UserModel.findById({ _id: id }).exec();
   }
