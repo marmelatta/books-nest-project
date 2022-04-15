@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BookService } from './book.service';
 import { Book } from '../entities/book.entity';
 import { Model } from 'mongoose';
-import { getModelToken, Prop } from '@nestjs/mongoose';
+import { getModelToken } from '@nestjs/mongoose';
 
 const mockBook = {
   title: 'title 1',
@@ -50,6 +50,7 @@ describe('BookService', () => {
         fileCover: 'FileCover 1',
       }),
     );
+
     const newBook = await service.create({
       title: 'title 1',
       description: 'description 1',
