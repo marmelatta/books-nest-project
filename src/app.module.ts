@@ -7,6 +7,7 @@ import { HttpModule } from '@nestjs/axios';
 import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { BookCommentModule } from './book-comment/book-comment.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AuthModule } from './auth/auth.module';
     HttpModule,
     UsersModule,
     AuthModule,
+    BookCommentModule,
   ],
   controllers: [AppController, UsersController],
   providers: [AppService],
