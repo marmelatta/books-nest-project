@@ -8,6 +8,8 @@ import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { BookCommentModule } from './book-comment/book-comment.module';
+import { AlertGateway } from './alert/alert.gateway';
+import { AlertController } from './alert/alert.controller';
 
 @Module({
   imports: [
@@ -22,7 +24,7 @@ import { BookCommentModule } from './book-comment/book-comment.module';
     AuthModule,
     BookCommentModule,
   ],
-  controllers: [AppController, UsersController],
-  providers: [AppService],
+  controllers: [AppController, UsersController, AlertController],
+  providers: [AppService, AlertGateway],
 })
 export class AppModule {}
