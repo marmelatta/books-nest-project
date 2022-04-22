@@ -28,15 +28,16 @@ export class ChatGateway implements OnGatewayInit {
     await this.bookCommentService.create({
       user: message.sender,
       bookId: message.room,
-      message: message.message,
+      comment: message.message,
     });
     this.wss.to(message.room).emit('chatToClient', message);
   }
 
   @SubscribeMessage('joinRoom')
-  handleJoinRoom(client: Socket, room: string) {
+  async handleJoinRoom(client: Socket, room: string) {
     client.join(room);
-    client.emit('joinedRoom', room);
+    const messages = await this.bookCommentService.findAllBookComment(room);
+    client.emit('joinedRoom', room, messages);
   }
 
   @SubscribeMessage('leaveRoom')

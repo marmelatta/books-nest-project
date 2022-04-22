@@ -111,7 +111,14 @@
         this.toggleRoomMembership();
       });
       
-      this.socket.chat.on('joinedRoom', (room) => {
+      this.socket.chat.on('joinedRoom', (room, messageObjects) => {
+        messageObjects.forEach(message => {
+          const mes = {
+            sender: message.user,
+            room: message.bookId,
+            message: message.comment,}
+          this.messages[message.bookId].push(mes);
+        })
         this.rooms[room] = true;
       })
 
