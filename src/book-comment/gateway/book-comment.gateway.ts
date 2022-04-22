@@ -8,6 +8,7 @@ import {
 } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
+import { BookCommentService } from "../book-comment.service";
 
 @WebSocketGateway()
 export class BookCommentGateway
