@@ -14,7 +14,7 @@ export class BookFirebaseService {
   getBook(id: string): Promise<any> {
     return this.firebase.collection(this.relationName).doc(id).get();
   }
-  async getAllBooks(): Promise<any[]> {
+  async findAll(): Promise<any[]> {
     const res = [];
     const info = await this.firebase.collection(this.relationName).get();
     info.forEach((doc) => {

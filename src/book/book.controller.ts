@@ -16,6 +16,7 @@ import { ExceptionInterceptor } from '../interceptors/exception.interceptor';
 import { BodyValidatorPipe } from '../pipes/body-validator.pipe';
 import { ParseIntPipe } from 'src/pipes/parse-int.pipe';
 import { UpdateBookDto } from './model/update-book.dto';
+import { BookFirebaseService } from './book-firebase/book-firebase.service';
 
 class IParamId {
   id: string;
@@ -24,7 +25,7 @@ class IParamId {
 @UseInterceptors(ExceptionInterceptor)
 @Controller('book')
 export class BookController {
-  constructor(private bookService: BookService) {}
+  constructor(private bookService: BookFirebaseService) {}
 
   @Post()
   @UsePipes(new BodyValidatorPipe())
@@ -40,7 +41,7 @@ export class BookController {
 
   @Get(':id')
   @UsePipes(ParseIntPipe)
-  async getBook(@Param(':id') id: number): Promise<BookDocument> {
+  async getBook(@Param(':id') id: string): Promise<BookDocument> {
     return this.bookService.getBook(id);
   }
 
