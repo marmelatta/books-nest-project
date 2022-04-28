@@ -25,7 +25,7 @@ import { FirebaseModule } from 'nestjs-firebase';
     AuthModule,
     BookCommentModule,
     FirebaseModule.forRoot({
-      googleApplicationCredential: './../static/serviceAccountKey.json',
+      googleApplicationCredential: 'static/serviceAccountKey.json',
     }),
   ],
   controllers: [AppController, UsersController, AlertController],

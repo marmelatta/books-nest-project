@@ -4,6 +4,8 @@ import { BookController } from './book.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Book, BookSchema } from '../entities/book.entity';
 import { BookFirebaseService } from './book-firebase/book-firebase.service';
+import { firestore } from 'firebase-admin';
+import Firestore = firestore.Firestore;
 
 @Module({
   imports: [
@@ -14,7 +16,7 @@ import { BookFirebaseService } from './book-firebase/book-firebase.service';
       },
     ]),
   ],
-  providers: [BookService, BookFirebaseService],
+  providers: [BookService, BookFirebaseService, Firestore],
   controllers: [BookController],
 })
 export class BookModule {}
