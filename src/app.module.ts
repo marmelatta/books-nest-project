@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { BookCommentModule } from './book-comment/book-comment.module';
 import { AlertGateway } from './alert/alert.gateway';
 import { AlertController } from './alert/alert.controller';
+import { FirebaseModule } from 'nestjs-firebase';
 
 @Module({
   imports: [
@@ -23,6 +24,9 @@ import { AlertController } from './alert/alert.controller';
     UsersModule,
     AuthModule,
     BookCommentModule,
+    FirebaseModule.forRoot({
+      googleApplicationCredential: './../static/serviceAccountKey.json',
+    }),
   ],
   controllers: [AppController, UsersController, AlertController],
   providers: [AppService, AlertGateway],
