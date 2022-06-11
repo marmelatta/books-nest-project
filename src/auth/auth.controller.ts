@@ -1,11 +1,22 @@
-import { Body, Controller, Post, Request, UseGuards } from "@nestjs/common";
+import {Body, Controller, Get, Post, Request, UseGuards} from "@nestjs/common";
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
-  @Post('passport/signin')
-  @UseGuards(JwtAuthGuard)
+  @Get('test')
+  public test() {
+    return true;
+  }
+  
+  @Post('login')
+  //@UseGuards(JwtAuthGuard)
   public signIn(@Request() req, @Body() body) {
-    return req.user;
+    return req.body;
+  }
+
+  @Post('register')
+  //@UseGuards(JwtAuthGuard)
+  public register(@Request() req, @Body() body) {
+    return "register";
   }
 }
