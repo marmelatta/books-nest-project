@@ -6,11 +6,6 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 export class AuthController {
   constructor(private userService: UsersService) {}
 
-  @Get('test')
-  public test() {
-    return true;
-  }
-
   @Post('login')
   //@UseGuards(JwtAuthGuard)
   public signIn(@Request() req, @Body() body) {
