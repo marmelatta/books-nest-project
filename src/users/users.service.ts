@@ -1,8 +1,10 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from '../entities/user.entity';
-import { Connection, Model } from 'mongoose';
-import { CreateUserDto } from './dto/create-user.dto';
+import { User, UserDocument } from "../entities/user.entity";
+import { Connection, Model } from "mongoose";
+import { CreateUserDto } from "./dto/create-user.dto";
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class UsersService {
@@ -10,11 +12,14 @@ export class UsersService {
     @InjectModel(User.name)
     private UserModel: Model<UserDocument>,
     @InjectConnection()
-    private connection: Connection,
-  ) {}
+    private connection: Connection
+  ) {
+  }
 
   create(data: CreateUserDto): Promise<User> {
-    const user = new this.UserModel(data);
+    const salt = bcrypt.genSaltSync(10);
+    const password = data.password
+    const user = new this.UserModel({ ...data, password: bcrypt.hashSync(password, salt) });
     return user.save();
   }
 

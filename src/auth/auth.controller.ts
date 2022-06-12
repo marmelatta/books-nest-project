@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpStatus,
-  Post,
-  Request,
-  Res,
-} from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 
@@ -23,8 +15,8 @@ export class AuthController {
   @Post('register')
   //@UseGuards(JwtAuthGuard)
   public async register(
-    /*@Request() req,  -обратиться ко всему что есть*/ @Body()
-    createUserDto: CreateUserDto,
+    /*@Request() req,  -обратиться ко всему что есть*/
+    @Body() createUserDto: CreateUserDto,
     @Res() response,
   ) {
     const candidate = await this.userService.findOne(createUserDto.email);
@@ -33,7 +25,12 @@ export class AuthController {
         message: 'User with this login already exists',
       });
     } else {
-      return this.userService.create(createUserDto);
+      try {
+        const user = await this.userService.create(createUserDto);
+        response.status(HttpStatus.CREATED).json(user);
+      } catch (e) {
+        //exception
+      }
     }
   }
 }
